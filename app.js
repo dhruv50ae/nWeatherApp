@@ -8,6 +8,11 @@ app.get("/", (req, res) => {
     "https://api.openweathermap.org/data/2.5/weather?appid=f58a6a7a3b81aa9698d51ad854c43102&q=London&units=metric";
   https.get(url, (response) => {
     console.log(response);
+    response.on("data", (data) => {
+      const weatherData = JSON.parse(data);
+      const temp = weatherData.main.temp;
+      const weatherDescription = weatherData.weather[0].description;
+    });
   });
   res.send("The server is up and running");
 });
